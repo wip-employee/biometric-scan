@@ -30,19 +30,6 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
       text-align: center;
     }
-    .badge {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.12);
-      color: #38bdf8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
     h1 {
       font-size: 21px;
       margin-bottom: 6px;
@@ -199,7 +186,7 @@
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #38bdf8, #22c55e);
-      transition: width 0.1s linear;
+      transition: width 0.2s linear;
     }
     .status-text {
       font-size: 14px;
@@ -252,8 +239,6 @@
 <body>
 
   <div class="card">
-    <div class="badge">UI Demo Display</div>
-
     <!-- STEP 1: DETAILS -->
     <div id="step1" class="step active">
       <h1>Biometric Verification</h1>
@@ -273,7 +258,7 @@
     <!-- STEP 2: THUMB SCAN -->
     <div id="step2" class="step">
       <h1>Step 1: Thumb Scan</h1>
-      <p class="sub">Press and hold your thumb on the scanner below</p>
+      <p class="sub">Press and hold your thumb on the scanner below (1 min)</p>
 
       <div
         id="thumbPad"
@@ -296,7 +281,7 @@
     <!-- STEP 3: RETINA SCAN -->
     <div id="step3" class="step">
       <h1>Step 2: Retina Scan</h1>
-      <p class="sub">Look straight at the screen while optical scan completes</p>
+      <p class="sub">Look straight at the screen while optical scan completes (1 min)</p>
 
       <div class="retina-box">
         <div class="retina-ring"></div>
@@ -367,6 +352,7 @@
       thumbPad.classList.add('scanning');
       if (navigator.vibrate) navigator.vibrate(40);
 
+      // 25 steps of 4% every 2400ms = ~60 seconds (1 minute)
       thumbTimer = setInterval(function () {
         thumbPct += 4;
         if (thumbPct >= 100) {
@@ -390,7 +376,7 @@
           thumbFill.style.width = thumbPct + '%';
           thumbStatus.textContent = 'Scanning Thumb... ' + thumbPct + '%';
         }
-      }, 70);
+      }, 2400);
     }
 
     function stopThumbScan() {
@@ -409,6 +395,7 @@
       fill.style.width = '0%';
       status.style.color = '#38bdf8';
 
+      // 25 steps of 4% every 2400ms = ~60 seconds (1 minute)
       retinaTimer = setInterval(function () {
         pct += 4;
         if (pct >= 100) {
@@ -433,7 +420,7 @@
           fill.style.width = pct + '%';
           status.textContent = 'Scanning Retina... ' + pct + '%';
         }
-      }, 80);
+      }, 2400);
     }
 
     function resetAll() {
